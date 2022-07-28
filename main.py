@@ -10,13 +10,21 @@
 # >>> pip install python-telegram-bot
 # >>> /Users.../TelegramBot2/bin/python -m pip install --upgrade pip
 
+# >>> pip install requests
+# >>> pip install lxml
+# >>> pip install bs4
 
+
+# Telegram-bot Library:
 from telegram.ext.updater import Updater
 from telegram.update import Update
 from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
+# Web-scraping Libraries:
+import requests
+import bs4
 
 
 with open("token.txt", "r") as f:
@@ -47,6 +55,21 @@ def what_is(update, context):
     lower_case = no_spaces_on_sides.lower()
     print(lower_case)
 
+    #Serch Urban:
+    urban_seach(lower_case)
+
+
+    # Reply
+    #update.message.reply_to_message(""" UrbanDictionary: """)
+
+
+
+def urban_seach(lower_case2):
+    urb_search = requests.get(f"https://www.urbandictionary.com/define.php?term={lower_case2}")
+    urban_soup = bs4.BeautifulSoup(urb_search.text, "lxml") #lxml is a parsing engine
+    first_item = urban_soup.select(".break-words meaning mb-4")[0]
+
+    print(first_item.text)
 
 
 

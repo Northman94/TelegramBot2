@@ -26,12 +26,12 @@ from telegram.ext.filters import Filters
 import requests
 import bs4
 
+abc = " "
 
 with open("token.txt", "r") as f:
     TOKEN = f.read()
 
 updater = Updater(TOKEN, use_context=True)
-
 
 
 def start(update, context):
@@ -44,32 +44,43 @@ def help(update, context):
     """)
 
 
-
 def what_is(update, context):
 
-    update.message.reply_text("You wrote '%s'" % update.message.text)
-
+    # Transform search input for convenience:
     user_input = update.message.text
     no_command_text = user_input[8::]
     no_spaces_on_sides = no_command_text.strip()
     lower_case = no_spaces_on_sides.lower()
+
     print(lower_case)
 
+    update.message.reply_text("Search: '%s'" % lower_case) #update.message.text
+
+    print("!2!")
     #Serch Urban:
-    urban_seach(lower_case)
-
-
-    # Reply
-    #update.message.reply_to_message(""" UrbanDictionary: """)
+    urban_seach(update, lower_case)
 
 
 
-def urban_seach(lower_case2):
+def urban_seach(update, lower_case2):
     urb_search = requests.get(f"https://www.urbandictionary.com/define.php?term={lower_case2}")
     urban_soup = bs4.BeautifulSoup(urb_search.text, "lxml") #lxml is a parsing engine
-    first_item = urban_soup.select(".break-words meaning mb-4")[0]
 
-    print(first_item.text)
+    # Method ignores <tags> inside selected Class.
+    urb_explanation = urban_soup.select(".break-words.meaning.mb-4")
+
+
+    for q in urb_explanation:
+
+        abc = q.text
+
+        print(q.text + "\n")
+
+        urban_answer(update, abc)
+
+
+def urban_answer(update, a):
+    update.message.reply_text(a)
 
 
 
@@ -84,7 +95,6 @@ def youtube_url(update, context):
 
 
 
-
 def unknown(update, context):
     update.message.reply_text(
         "Sorry '%s' is not a valid command" % update.message.text)
@@ -94,7 +104,7 @@ def unknown_text(update, context):
     update.message.reply_text(
         "Sorry I can't recognize you , you said '%s'" % update.message.text)
 
-
+# = - = - = - = - = - = - = - = - = - = - = - =
 def main():
 #Command Harndlers:
     updater.dispatcher.add_handler(CommandHandler('start', start))

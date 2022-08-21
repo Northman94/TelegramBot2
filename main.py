@@ -52,17 +52,13 @@ def what_is(update, context):
     no_spaces_on_sides = no_command_text.strip()
     lower_case = no_spaces_on_sides.lower()
 
-    print(lower_case)
-
     update.message.reply_text("Search: '%s'" % lower_case) #update.message.text
 
-    print("!2!")
-    #Serch Urban:
-    urban_seach(update, lower_case)
+    urban_search(update, lower_case)
 
 
 
-def urban_seach(update, lower_case2):
+def urban_search(update, lower_case2):
     urb_search = requests.get(f"https://www.urbandictionary.com/define.php?term={lower_case2}")
     urban_soup = bs4.BeautifulSoup(urb_search.text, "lxml") #lxml is a parsing engine
 

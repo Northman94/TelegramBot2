@@ -25,8 +25,10 @@ from telegram.ext.filters import Filters
 # Web-scraping Libraries:
 import requests
 import bs4
+# Regex Library:
+import re
 
-abc = " "
+text_line = ""
 
 with open("token.txt", "r") as f:
     TOKEN = f.read()
@@ -40,21 +42,25 @@ def start(update, context):
 
 def help(update, context):
     update.message.reply_text("""
-    Write /whatIs command followed by a word, to receive a translation.
+    Write /urban command followed by a word, to receive a translation.
     """)
 
 
-def what_is(update, context):
+def urban(update, context):
 
     # Transform search input for convenience:
     user_input = update.message.text
-    no_command_text = user_input[8::]
+    no_command_text = user_input[7::]
     no_spaces_on_sides = no_command_text.strip()
     lower_case = no_spaces_on_sides.lower()
 
-    update.message.reply_text("Search: '%s'" % lower_case) #update.message.text
+    if len(lower_case) == 0 or lower_case.isspace():
+        update.message.reply_text("Empty space is cool, but try to enter a word or phrase.")
+    else:
+        print(lower_case + " = - = - = - = - = - = - = -")
+        update.message.reply_text("Search: '%s'" % lower_case) #update.message.text
 
-    urban_search(update, lower_case)
+        urban_search(update, lower_case)
 
 
 
@@ -68,14 +74,14 @@ def urban_search(update, lower_case2):
 
     for q in urb_explanation:
 
-        abc = q.text
+        text_line = q.text
 
         print(q.text + "\n")
 
-        urban_answer(update, abc)
+        reply_user(update, text_line)
 
 
-def urban_answer(update, a):
+def reply_user(update, a):
     update.message.reply_text(a)
 
 
@@ -84,7 +90,7 @@ def urban_answer(update, a):
 
 
 
-
+# = - = - = - = - = - = - = - = - = - = - =
 def youtube_url(update, context):
     update.message.reply_text("Youtube Link =>\
     https://www.youtube.com/")
@@ -105,7 +111,7 @@ def main():
 #Command Harndlers:
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('help', help))
-    updater.dispatcher.add_handler(CommandHandler('whatIs', what_is))
+    updater.dispatcher.add_handler(CommandHandler('urban', urban))
 
     updater.dispatcher.add_handler(CommandHandler('youtube', youtube_url))
 

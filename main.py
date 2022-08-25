@@ -25,8 +25,7 @@ from telegram.ext.filters import Filters
 # Web-scraping Libraries:
 import requests
 import bs4
-# Regex Library:
-import re
+
 
 text_line = ""
 
@@ -91,9 +90,11 @@ def reply_user(update, a):
 
 
 # = - = - = - = - = - = - = - = - = - = - =
+"""
 def youtube_url(update, context):
     update.message.reply_text("Youtube Link =>\
     https://www.youtube.com/")
+"""
 
 
 
@@ -101,10 +102,10 @@ def unknown(update, context):
     update.message.reply_text(
         "Sorry '%s' is not a valid command" % update.message.text)
 
-
 def unknown_text(update, context):
     update.message.reply_text(
         "Sorry I can't recognize you , you said '%s'" % update.message.text)
+
 
 # = - = - = - = - = - = - = - = - = - = - = - =
 def main():
@@ -113,7 +114,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('help', help))
     updater.dispatcher.add_handler(CommandHandler('urban', urban))
 
-    updater.dispatcher.add_handler(CommandHandler('youtube', youtube_url))
+    #updater.dispatcher.add_handler(CommandHandler('youtube', youtube_url))
 
 
 # Filters out unknown commands:

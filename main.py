@@ -1,21 +1,4 @@
-# https://t.me/dictionary_Ircha_bot
-# @dictionary_Ircha_bot
 
-# Telegram Bot Documentation: https://core.telegram.org/bots
-# API Documentation: https://core.telegram.org/bots/api
-
-# (from telegram.ext) showed an Error due to Package version.
-
-# Terminal:
-# >>> pip install python-telegram-bot
-# >>> /Users.../TelegramBot2/bin/python -m pip install --upgrade pip
-
-# >>> pip install requests
-# >>> pip install lxml
-# >>> pip install bs4
-
-
-# Telegram-bot Library:
 from telegram.ext.updater import Updater
 from telegram.update import Update
 from telegram.ext.callbackcontext import CallbackContext
@@ -87,16 +70,7 @@ def reply_user(update, a):
 
 
 
-
-
 # = - = - = - = - = - = - = - = - = - = - =
-"""
-def youtube_url(update, context):
-    update.message.reply_text("Youtube Link =>\
-    https://www.youtube.com/")
-"""
-
-
 
 def unknown(update, context):
     update.message.reply_text(
@@ -113,8 +87,6 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('help', help))
     updater.dispatcher.add_handler(CommandHandler('urban', urban))
-
-    #updater.dispatcher.add_handler(CommandHandler('youtube', youtube_url))
 
 
 # Filters out unknown commands:

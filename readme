@@ -1,0 +1,17 @@
+
+# https://t.me/dictionary_Ircha_bot
+# @dictionary_Ircha_bot
+
+# Telegram Bot Documentation: https://core.telegram.org/bots
+# API Documentation: https://core.telegram.org/bots/api
+
+# (from telegram.ext) showed an Error due to Package version.
+
+
+# Terminal:
+# >>> pip install python-telegram-bot
+# >>> /Users.../TelegramBot2/bin/python -m pip install --upgrade pip
+
+# >>> pip install requests
+# >>> pip install lxml
+# >>> pip install bs4
